@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<!-- Toutes les balises d'entête -->
+<head name="head">
+	<!-- Encodage de la page -->
+	<meta charset="utf-8" lang="fr"/>
+	<!-- Nom de la page -->
+	<title>Dom navigation</title>
+	<!-- Lien vers le fichier de style CSS -->
+	<link type="text/css" rel="stylesheet" href="style.css"/>
+	<!-- Code JavaScript de la page -->
+	<script src="../../JS/PremierScript.js"></script>
+	<!-- Image onglet  -->
+	<link rel="shortcut icon" type ="image/x-icon" href="../../images/decarboneNon.png"/>
+</head>
+<script>
+function fNode(){
+  var HTML = document.firstChild.name;
+  console.log("fNode"); // fNode
+  console.log(HTML); //undefined
+  console.log(typeof(HTML)); //undefined
+  console.log(typeof(document.firstChild)); //object
+
+  HTML = document.firstChild.nodeName;
+  console.log(HTML); //HTML
+
+  HTML = document.lastChild.nodeName;
+  console.log(HTML); //HTML
+
+  HTML = document.childNodes;
+  console.log(HTML); //NodeList [html]
+
+  var entete = document.getElementsByTagName('html')[0].firstChild.nodeName;
+  console.log(entete); //HEAD
+
+  var titre = document.getElementsByTagName('html')[0].firstChild.childNodes[0].nodeType;
+  if (titre==3) titre = "TEXT_NODE";
+  console.log(titre); //TEXT_NODE
+
+  var titre = document.getElementsByTagName('html')[0].firstChild.childNodes[0].nodeName;
+  console.log(titre); //#text
+
+  var objEntete = document.getElementsByTagName('html')[0].firstChild;
+  console.log(objEntete); // > <head name="HEAD"> </head>
+
+  var objTitle = document.getElementsByTagName('head')[0].firstChild.nextSibling;
+  console.log(objTitle); //<meta charset="utf-8" lang="en">
+
+  var objTitle = objEntete.firstChild.nextSibling;
+  console.log(objTitle); //<meta charset="utf-8" lang="en">
+
+  var titreValue = objTitle.innerHTML; //Texte contenu dans le titre
+  console.log(titreValue);
+
+  var titreValue = objTitle.childNodes[0].nodeValue; //Texte contenu dans le titre
+  console.log('texte du title: ' + titreValue);
+
+  var titreValue = objTitle.firstChild.nodeValue; //Texte contenu dans le titre
+  console.log('texte du title : ' + titreValue);
+}
+
+function afficherDom(o)
+{
+	console.log(o.nextSibling);
+	o.nextSibling.innerHTML = "";
+	let dom = document.childNodes[1].childNodes;
+	console.log(dom);	
+	for(let i = 0; i < dom.length; i++)
+	{
+		let p = document.createElement("p");
+		if(dom[i].innerHTML)
+			p.append(document.createTextNode(dom[i].innerHTML));
+		else
+			p.append(document.createTextNode(dom[i]));
+		o.nextSibling.append(p);
+	}
+}
+
+function remove(event)
+{
+	let but = document.createElement("button");
+	but.innerHTML = event.target.innerHTML;
+	event.target.parentNode.replaceChild(but, event.target);
+	console.log(document.getElementsByTagName("body")[0]);
+}
+
+</script>
+<!--Contenu de le page-->
+<body onclick="remove(event)">
+	<!-- Haut de la page -->
+	<header>
+	
+	</header>
+	
+	<!-- Corps de la page  -->
+	<blockquote>
+	<h3>Créer des éléments dans le DOM</h3>
+	<button onclick="afficherDom(this)">Afficher le contenu du DOM</button><div> 
+	OY
+	</div>
+	</blockquote>
+	
+	<!-- Pas de la page  -->
+	<footer>
+	
+	</footer>
+</body>
+</html>
