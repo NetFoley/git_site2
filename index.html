@@ -8,7 +8,7 @@
 	<!-- Nom de la page -->
 	<title>Dom navigation</title>
 	<!-- Lien vers le fichier de style CSS -->
-	<link type="text/css" rel="stylesheet" href="style.css"/>
+	<link type="text/css" rel="stylesheet" href="../../CSS/style.css"/>
 	<!-- Code JavaScript de la page -->
 	<script src="../../JS/PremierScript.js"></script>
 	<!-- Image onglet  -->
@@ -77,17 +77,24 @@ function afficherDom(o)
 	}
 }
 
-function remove(event)
+function replace(event)
 {
 	let but = document.createElement("button");
+	but.setAttribute("onclick", "remove(event)");
 	but.innerHTML = event.target.innerHTML;
 	event.target.parentNode.replaceChild(but, event.target);
 	console.log(document.getElementsByTagName("body")[0]);
 }
 
+function remove(event)
+{
+	event.target.parentNode.removeChild(event.target);
+	console.log(document.getElementsByTagName("body")[0]);
+}
+
 </script>
 <!--Contenu de le page-->
-<body onclick="remove(event)">
+<body onclick="replace(event)">
 	<!-- Haut de la page -->
 	<header>
 	
